@@ -17,13 +17,16 @@ class BookManagementTest extends TestCase
      */
     public function book_can_be_added()
     {
-        $response = $this->post('/books', [
+        $bookData = [
             'isbn' => 9780840700551,
             'title' => 'Holy Bible',
             'author' => 'Lina Žutautė'
-        ]);
+        ];
+        $response = $this->post('/books', $bookData);
         $response->assertStatus(200);
         $this->assertCount(1, Book::all());
+        $response->assertRedirect('/books/' . $bookData['isbn']);
+
     }
 
     /** @test */
@@ -70,7 +73,7 @@ class BookManagementTest extends TestCase
     {
         // given
         $this->withoutExceptionHandling();
-        $bookData = ['title' => 'Holy Bible', 'isbn' => 9780840700551, 'author' => 'Lina Žutautė'];
+        $bookData = ['isbn' => 9780840700551, 'title' => 'Holy Bible', 'author' => 'Lina Žutautė'];
         $this->post('/books', $bookData);
 
         // when
@@ -83,5 +86,25 @@ class BookManagementTest extends TestCase
         $this->assertCount(1, Book::all());
         $this->assertEquals($updatedBookData['isbn'], Book::first()->isbn);
         $this->assertEquals($updatedBookData['title'], Book::first()->title);
+        $response->assertRedirect('/books/' . $bookData['isbn']);
+
     }
+
+        /** @test */
+        public function book_can_be_deleted() {
+            // given
+            $this->withoutExceptionHandling();
+            $bookData = ['title' => 'Anything', 'isbn' => 9780840700551, 'author' => 'Lina Žutautytė' ];
+            $this->post('/books', $bookData);
+    
+            // when
+            $this->assertCount(1, Book::all()); // optional, we have already proved that this works above
+            $response = $this->delete('/books/' . $bookData['isbn']);
+    
+            // then
+            $response->assertStatus(200);
+            $this->assertCount(0, Book::all());
+            $response->assertRedirect('/books/');
+        }
+    
 }
