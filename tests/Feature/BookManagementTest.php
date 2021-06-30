@@ -69,7 +69,7 @@ class BookManagementTest extends TestCase
     public function book_can_be_updated()
     {
         // given
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $bookData = ['title' => 'Holy Bible', 'isbn' => 9780840700551, 'author' => 'Lina Žutautė'];
         $this->post('/books', $bookData);
 
