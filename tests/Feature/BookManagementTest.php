@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -18,5 +19,6 @@ class BookManagementTest extends TestCase
             'title' => 'Holy Bible'
         ]);
         $response->assertStatus(200);
+        $this->assertCount(1, Book::all());
     }
 }
