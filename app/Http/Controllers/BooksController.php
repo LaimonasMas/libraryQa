@@ -12,4 +12,10 @@ class BooksController extends Controller
         $data = request()->validate([ 'title' => 'required', 'isbn' => 'required', 'author' => 'required' ]);
         Book::create($data);
     }
+
+    public function update(Book $book){
+        $data = request()->validate([ 'title' => 'required', 'isbn' => 'required', 'author' => 'required' ]);
+        $book->update($data);
+    }
+
 }

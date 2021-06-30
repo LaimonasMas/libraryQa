@@ -19,4 +19,6 @@ Route::get('/', function () {
 });
 
 Route::post('/books', [ BooksController::class, 'store']);
+Route::put('/books/{book}/', [ BooksController::class, 'update']);
+
 
