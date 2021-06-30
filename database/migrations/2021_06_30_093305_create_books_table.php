@@ -14,7 +14,7 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->integer('isbn', 13)->autoIncrement();
+            $table->bigInteger('isbn')->autoIncrement();
             $table->string('title', 100);
             $table->date('reserved_from')->nullable();
             $table->date('reserved_to')->nullable();
