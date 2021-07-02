@@ -6,9 +6,9 @@
 ![Eco Status](https://img.shields.io/badge/ECO-Friendly-green.svg)
 
 
-## Restaurant application
+## Laravel Feature testing
 
-Laravel CRUD Feature testing. 
+Laravel CRUD Feature testing for studying purposes. 
 
 #### Project features
 - PHP
