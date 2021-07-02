@@ -23,7 +23,7 @@ class BookManagementTest extends TestCase
             'author' => 'Lina Žutautė'
         ];
         $response = $this->post('/books', $bookData);
-        $response->assertStatus(200);
+        $response->assertStatus(302);
         $this->assertCount(1, Book::all());
         $response->assertRedirect('/books/' . $bookData['isbn']);
 
@@ -82,7 +82,7 @@ class BookManagementTest extends TestCase
 
         // then
         // var_dump(Book::all());
-        $response->assertStatus(200);
+        $response->assertStatus(302);
         $this->assertCount(1, Book::all());
         $this->assertEquals($updatedBookData['isbn'], Book::first()->isbn);
         $this->assertEquals($updatedBookData['title'], Book::first()->title);
@@ -102,7 +102,7 @@ class BookManagementTest extends TestCase
             $response = $this->delete('/books/' . $bookData['isbn']);
     
             // then
-            $response->assertStatus(200);
+            $response->assertStatus(302);
             $this->assertCount(0, Book::all());
             $response->assertRedirect('/books/');
         }
